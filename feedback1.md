@@ -5,11 +5,11 @@
 Le projet fonctionne très bien et répond aux demandes. Des optimisations de code sont possibles, mais cela viendra avec l'expérience ! Attention, malgré tout, à supprimer les marques de développement telles que les commentaires non nécessaires et les console.log qui n'ont pas de valeur ajoutée en production.
 
 | Étapes | Commentaires                                                                                                               |
-| ------ | -------------------------------------------------------------------------------------------------------------------------- | --- |
+| ------ | -------------------------------------------------------------------------------------------------------------------------- |
 | 1      | Les fonctionnalités sont présentes, le code est propre et des optimisations sont possibles. Mais l'implémentation est là ! |
 | 2      | À part une erreur plutôt basique, rien à dire sur cette partie ! Bien joué !                                               |
 | 3      | L'organisation est bien pensée, l'implémentation n'est pas fausse mais elle doit être déplacée pour être "standard".       |
-| Bonus  | Très bien implémenté. Bravo !                                                                                              |     |
+| Bonus  | Très bien implémenté. Bravo !                                                                                              |
 
 > **- Etape 1**
 
