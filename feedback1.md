@@ -2,21 +2,20 @@
 
 **Résumé :**
 
-Le projet fonctionne très bien et répond aux demandes, des optimisations de code sont possible mais ca viendra avec l'expérience !
-Attention malgré tout a supprimer les marques de développement comme les commentaires **non nécessaires** et les **console.log** qui n'ont pas de valeur ajoutée en production.
+Le projet fonctionne très bien et répond aux demandes. Des optimisations de code sont possibles, mais cela viendra avec l'expérience ! Attention, malgré tout, à supprimer les marques de développement telles que les commentaires non nécessaires et les console.log qui n'ont pas de valeur ajoutée en production.
 
-| Etapes | Commentaires                                                                                                               |
-| ------ | -------------------------------------------------------------------------------------------------------------------------- |
-| 1      | Les fonctionnalités sont présentes, le code est propre et des optimisations sont possibles. Mais l'implémentation est la ! |
-| 2      | A part une erreur plutot basique, rien a dire sur cette partie ! Bien joué !                                               |
-| 3      | L'organisation est pensée, une implémentation pas fausse mais a déplacer pour etre "standard".                             |
-| Bonus  | Très bien implémenté. Bravo !                                                                                              |
+| Étapes | Commentaires                                                                                                               |
+| ------ | -------------------------------------------------------------------------------------------------------------------------- | --- |
+| 1      | Les fonctionnalités sont présentes, le code est propre et des optimisations sont possibles. Mais l'implémentation est là ! |
+| 2      | À part une erreur plutôt basique, rien à dire sur cette partie ! Bien joué !                                               |
+| 3      | L'organisation est bien pensée, l'implémentation n'est pas fausse mais elle doit être déplacée pour être "standard".       |
+| Bonus  | Très bien implémenté. Bravo !                                                                                              |     |
 
 > **- Etape 1**
 
-Avant toutes choses, félicitation la feature fonctionne correctement !
-Lorsque je sélectionne une carte je tombe bien sur le détail de la carte avec les informations nécessaires (Elément, Niveau, Valeurs NSEW).
-Visuellement, nous t'avons demander la disposition de ton choix mais de manière basique, le but était de te faire travailler la récupération d'information via une base de donnée et de passer des éléments dynamique et non le style en lui même.
+Avant toute chose, félicitations, la fonctionnalité fonctionne correctement !
+Lorsque je sélectionne une carte, je tombe bien sur le détail de la carte avec les informations nécessaires (élément, niveau, valeurs NSEW).
+Visuellement, nous t'avons demandé la disposition de ton choix, mais de manière basique. Le but était de te faire travailler sur la récupération d'informations via une base de données et de passer des éléments dynamiques plutôt que sur le style en lui-même.
 
 Dans le router on retrouve bien la route que tu as défini, tu lui passe également un :id et une fonction.
 
@@ -99,12 +98,11 @@ L'avantage c'est que ca evitera que tu te perd avec les `"+"` de concaténation.
 
 > **- Etape 3**
 
-Pour l'utilisation du Middleware c'est bien et c'est encore mieux de l'avoir isolé dans un dossier a part !
+Pour l'utilisation du Middleware, c'est bien, et c'est encore mieux de l'avoir isolé dans un dossier à part !
 
-Cependant j'aurai personnellement mis le Middleware au niveau de l'index en "global" de ton application, actuellement c'est un peu ~~"[(~~triché~~)]"~~ de l'avoir mis dans le router, puisque ton tableau ce crée dès la première route consultée et non lors du lancement de l'application ce qui sur d'autre projet peux créer des soucis.
+Cependant, j'aurais personnellement mis le Middleware au niveau de l'index en "global" de ton application. Actuellement, c'est un peu "triché" de l'avoir mis dans le router, puisque ton tableau se crée dès la première route consultée et non lors du lancement de l'application, ce qui, sur d'autres projets, peut créer des soucis.
 
-L'ajout au deck fonctionne également très bien, si je peux ajouter une remarque, toujours prévenir l'utilisateur que son action a eu une conséquence.... ou pas !
-Nous pouvons regretter l'absence de message d'information pour prévenir l'utilisateur que la carte a bien été rajouter au deck ou que non, elle n'a pas été ajoutée au deck a cause de ...
+L'ajout au deck fonctionne également très bien. Si je peux ajouter une remarque, il est toujours préférable de prévenir l'utilisateur que son action a eu une conséquence, ou pas ! Nous pouvons regretter l'absence de message d'information pour prévenir l'utilisateur que la carte a bien été ajoutée au deck ou que non, elle n'a pas été ajoutée au deck à cause de...
 
 Dans `deckPage`, nous pouvons faire une petite optimisation également, pour nous passer du bloc `if` :
 

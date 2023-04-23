@@ -15,11 +15,11 @@ Allez ! Tu vas y arriver !
 
 > **- Etape 1**
 
-J'ai lancé ton projet mais malheureusement de mon côté il se passe rien j'avais peur que le projet soit complètement vierge mais au final je vois qu'il y a quand même des choses donc je vais corriger des différentes parties que tu as fait.
+J'ai lancé ton projet mais malheureusement de mon côté il ne se passe rien. J'avais peur que le projet soit complètement vierge, mais finalement je vois qu'il y a quand même des éléments. Je vais donc te corriger sur les différentes parties que tu as réalisées.
 
-Pour rappel pour cette étape nous voulions que quand tu cliques sur une carte on accède aux informations de la carte que tu as sélectionné avec les informations telles que le niveau de la carte et les points de chaque direction sans oublier l'élément de la carte qui est majeur pour l'ensemble du projet.
+Pour rappel, pour cette étape, nous voulions que lorsque tu cliques sur une carte, tu puisses accéder aux informations de la carte sélectionnée, telles que le niveau de la carte, les points de chaque direction et l'élément de la carte, qui est majeur pour l'ensemble du projet.
 
-Je vois que dans le projet tu as créé un contrôleur `mainController`, ou à l'intérieur de celui-ci une fonction `cardPage` est présente, avant toute chose je peux te dire que tu ne passes pas l'information card dans le render de cette fonction donc quoi qu'il arrive il ne s'affichera rien, vu ce que tu as essayé de mettre sache que ce que tu dois passer c'est la constante card
+Je constate que dans le projet, tu as créé un contrôleur nommé `mainController`. À l'intérieur de celui-ci, une fonction `cardPage` est présente. Avant toute chose, je peux te dire que tu ne passes pas l'information "card" dans le render de cette fonction. Ainsi, quoi que tu fasses, rien ne s'affichera. Vu ce que tu as essayé de mettre, sache que ce que tu dois passer est la constante "card".
 
       res.render('card', {
         card
@@ -59,21 +59,17 @@ en :
 
     return queryResult.rows[0] || null;
 
-Si, `queryResult` ou `rows` est en erreur, alors ca renverra `null` et ne génèrera pas d'erreur.
+Si `queryResult` ou `rows` génèrent une erreur, cela renverra `null` et ne générera pas d'erreur.
 
-D'ailleurs tu remarqueras qu'il y a un souci dans ton code entre le mot `queryResult` et `resultQuery`, les deux sont censés être les mêmes et non pas de variables complètement différentes donc `resultQuery` devrait être remplacé par `queryResult` et j'ai également utiliser la constante `targetId` que tu avais commenter.
+D'ailleurs, tu remarqueras qu'il y a un problème dans ton code entre les noms `queryResult` et `resultQuery`. Les deux doivent être identiques et ne doivent pas être deux variables complètement différentes. Par conséquent, `resultQuery` doit être remplacé par `queryResult`. J'ai également utilisé la constante `targetId` que tu avais commentée.
 
-Une fois que ça c'est fait tu peux modifier tu as vu afin de rajouter le lien qui t'amènera au détail de chaque carte pour ça c'est dans la partie `cardList.ejs`
+Une fois que cela est fait, tu peux modifier la partie `cardList.ejs` pour ajouter un lien qui te mènera au détail de chaque carte. Remplace la balise `<a href="#">` par `<a href="/card/<%= card.id %>">`.
 
-Tu peux remplacer la balise `<a href="#">` par `<a href="/card/<%= card.id %>">`
-
-Ah et puis en regardant ton router.js j'ai remarquer que tu ne lui passé pas non plus le parametre id sur ta route card.
-Pour ce faire 4 petits caractère a rajouter !
+En outre, en regardant ton fichier router.js, j'ai remarqué que tu ne passais pas non plus le paramètre id sur ta route card. Pour ce faire, il suffit d'ajouter 4 petits caractères :
 
     router.get('/card/:id', mainController.cardPage);
 
-À partir de tout ça tu devrais voir le détail de ta carte, attention cependant je vois que dans ta vue card.ejs que tu fais un forEach de cards.
-Ensuite aux modifications que nous avons fait nous n'allons pas lui passer de tableau mais une seule carte avec l'ensemble des détails accessible tu n'as donc pas besoin de faire une itération je te laisse corriger le code ou le continuer par rapport aux remarques que je t'ai fait si tu es en difficulté n'hésite pas à nous prévenir !
+À partir de là, tu devrais pouvoir voir le détail de chaque carte. Cependant, je vois que dans ta vue `card.ejs`, tu fais une boucle `forEach` pour afficher les cartes. Cependant, après les modifications que nous avons apportées, nous ne passerons plus un tableau mais une seule carte avec l'ensemble des détails accessibles. Par conséquent, tu n'as pas besoin de faire une boucle `forEach`. Je te laisse corriger le code en conséquence. Si tu rencontres des difficultés, n'hésite pas à nous en informer !
 
 > **- Etape 2 et Etape 3**
 

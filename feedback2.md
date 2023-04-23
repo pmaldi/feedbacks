@@ -2,21 +2,19 @@
 
 **Résumé :**
 
-Le projet répond dans l'ensemble a la demande ! Bravo pour ça ! Cependant je te conseil de prendre le temps de relire ton code afin d'éviter des coquilles.
-Tu peux également commencer a te renseigner sur l'optimisation de code et les packages present dans le projet comme `express-session` ou `dotenv`.
+Le projet répond dans l'ensemble à la demande ! Bravo pour ça ! Cependant, je te conseille de prendre le temps de relire ton code afin d'éviter des coquilles. Tu peux également commencer à te renseigner sur l'optimisation de code et les packages présents dans le projet comme `express-session` ou `dotenv`.
 
-| Etapes | Commentaires                                                                                                                                |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1      | L'implémentation est bonne mais nécessite plus de vérification au niveau des retours de la base de donnée.                                  |
-| 2      | Ta méthode getSearchResults est correctement appeler, mais il manque un cas fonctionnel celui du "Et si je veux les cartes sans éléments ?" |
-| 3      | La présence de express-session est top ! Mais par manque de temps des erreurs sont présentes.                                               |
+| Étapes | Commentaires                                                                                                                                    |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1      | L'implémentation est bonne, mais nécessite plus de vérifications au niveau des retours de la base de données.                                   |
+| 2      | Ta méthode `getSearchResults` est correctement appelée, mais il manque un cas fonctionnel : celui du "Et si je veux les cartes sans éléments ?" |
+| 3      | La présence de `express-session` est top ! Mais, par manque de temps, des erreurs sont présentes.                                               |
 
 > **- Etape 1**
 
-Pour cette feature, nous t'avons demandé de créer un moyen de voir les détails de la carte sélectionner.
-Visuellement, nous t'avons demander la disposition de ton choix mais de manière basique, le but était de te faire travailler la récupération d'information via une base de donnée et de passer des éléments dynamique et non le style en lui même.
+Pour cette feature, nous t'avons demandé de créer un moyen de voir les détails de la carte sélectionnée. Visuellement, nous t'avons demandé la disposition de ton choix, mais le but était de te faire travailler la récupération d'informations via une base de données et de passer des éléments dynamiques plutôt que le style en lui-même.
 
-Dans le router on retrouve bien la route que tu as défini, tu lui passe également un :id et une fonction.
+Dans le router, on retrouve bien la route que tu as définie, à laquelle tu passes également un :id et une fonction.
 
     // Card
     router.get('/card/:id' , cardsController.item);
@@ -66,58 +64,54 @@ en :
 
     return cardResults.rows[0] || null;
 
-Si, `cardResults` ou `rows` est en erreur, alors ca renverra `null` et ne génèrera pas d'erreur.
+Si `cardResults` ou `rows` sont en erreur, alors cela renverra `null` et ne générera pas d'erreur.
 
-Pour ta view `card.ejs` est correct.... Mais uniquement dans le cas ou tout va bien !
+Concernant ta vue `card.ejs`, elle est correcte... mais uniquement dans le cas où tout va bien !
 
 Je te propose de tester une chose :
 
-1.  Démarre ton serveur avec `npm run dev`
-2.  va sur une carte, n'importe lequel.
-3.  Dans la bar d'adresse, remplace l'id par un id qui n'existe pas par exemple 999. `http://127.0.0.1:1234/card/999`
+1. Démarre ton serveur avec `npm run dev`.
+2. Va sur une carte, n'importe laquelle.
+3. Dans la barre d'adresse, remplace l'ID par un ID qui n'existe pas, par exemple 999 : `http://127.0.0.1:1234/card/999`.
 
-Tu constatera qu'il ya des erreurs de rendu car ta ligne `dataMapper.getOneCard(id)` peut être vide, et tu ne fais pas de vérification qu'il y'a des données.
+Tu constateras qu'il y a des erreurs de rendu, car ta ligne `dataMapper.getOneCard(id)` peut être vide et tu ne fais pas de vérification qu'il y a des données.
 
-2 solutions pour ce problème :
+Il y a deux solutions pour résoudre ce problème :
 
-1.  Met une vérification en place au retour de la ligne `dataMapper.getOneCard(id)` dans ton `cardsController.js` afin de verifier que nous avons bien des éléments.
-2.  Met une condition dans ton rendu qui vérifie que `card` est bien alimenter dans la vue `card.ejs`
+1. Mettre une vérification en place lors du retour de la ligne `dataMapper.getOneCard(id)` dans ton fichier `cardsController.js` afin de vérifier que nous avons bien des éléments.
+2. Mettre une condition dans ton rendu qui vérifie que `card` est bien alimenté dans la vue `card.ejs`.
 
-Pour faire propre, je te conseil la première solution. Je te laisse essayer de mettre en place cette solution si tu as besoin d'informations n'hésite pas a nous demander !
+Pour être propre, je te conseille d'utiliser la première solution. Je te laisse essayer de la mettre en place. Si tu as besoin d'informations, n'hésite pas à nous demander !
 
 > **- Etape 2**
 
-Dans la fonction `getSearchResults`, tu as fais appel a `dataMapper.getElements()` chose intelligente pour le coup, mais malheureusement ne fonctionne pas dans ton cas.
+Dans la fonction `getSearchResults`, tu as fait appel à `dataMapper.getElements()`, chose intelligente pour le coup, mais malheureusement cela ne fonctionne pas dans ton cas.
 
-Ta fonction `getElements()`va renvoyer que des cartes qui ont un élément, car tu utilise la construction `IS NOT NULL` dans la requête. Donc nous ne pourront pas connaitre les cartes qui n'ont pas d'élément, autre chose en règle général, il vaut mieux optimiser les requêtes SQL que tu peux optimiser afin de gagner en performance. Ta fonction `getElements()` récupère l'ensemble des cartes du projet dont l'élément est renseigner, si nous avions plusieurs 100ene de millions de cartes ca aurai été peut-être lourd a récupérer.
+Ta fonction `getElements()` va renvoyer uniquement des cartes qui ont un élément, car tu utilises la construction `IS NOT NULL` dans la requête. Donc nous ne pourrons pas connaître les cartes qui n'ont pas d'élément. En règle générale, il est préférable d'optimiser les requêtes SQL que tu peux optimiser afin de gagner en performance. Ta fonction `getElements()` récupère l'ensemble des cartes du projet dont l'élément est renseigné, si nous avions plusieurs centaines de millions de cartes cela aurait peut-être été lourd à récupérer.
 
-Dans ton cas, tu aurai pu faire une nouvelle fonction afin de lui passer le paramètre élément, et ca t'aurai éviter de faire un `filter`. Mais c'est très bien d'avoir penser a la méthode `filter` !
+Dans ton cas, tu aurais pu créer une nouvelle fonction pour lui passer le paramètre élément, et cela t'aurait évité d'utiliser `filter`. Mais c'est très bien d'avoir pensé à la méthode `filter` !
 
-Mais attention dans tout les cas, vaut mieux contrôler le retour de tes requêtes pour être sur que les différentes constante que tu as remplit contienne des valeurs.
+Mais attention, dans tous les cas, il vaut mieux contrôler le retour de tes requêtes pour être sûr que les différentes constantes que tu as remplies contiennent des valeurs.
 
 > **- Etape 3**
 
-Tu as bien implémenter le package `express-session` c'est très bien ! Je te donne quand même 2 informations importantes pour le futur,
+Voici une version corrigée du texte :
 
-- En régle générale, les `require` on les met toujours en haut de ton
-  fichier afin d'avoir directement toutes les informations concernant
-  les imports.
-- Le projet utilise dotenv, qui permet de mettre en variable
-  d'environnement des données de déploiement mais également des données
-  sensibles comme ton secret qui est... pas courant !
+Tu as bien implémenté le package `express-session`, c'est très bien ! Je te donne quand même 2 informations importantes pour le futur :
 
-le faite d'utiliser ça, ca te permettra de sécuriser ton projet lors d'une publication sur Github par exemple.
+- En règle générale, les `require` doivent être placés en haut de ton fichier afin d'avoir directement toutes les informations concernant les imports.
+- Le projet utilise dotenv, qui permet de mettre en variable d'environnement des données de déploiement mais également des données sensibles comme ton secret qui n'est pas courant ! En utilisant cela, tu peux sécuriser ton projet lors d'une publication sur Github par exemple.
+
+Remplace le code suivant :
 
     secret: 'dadp kdfpkazdf kaf a*fka kfafâlfaflafelfafv lefa',
 
-par
+par :
 
     secret: process.env.SECRET,
 
-Dans ta fonction `addDeck` tu as penser a initialiser la session avec le tableau `deck` c'est bien !
+Dans ta fonction `addDeck`, tu as pensé à initialiser la session avec le tableau `deck`, c'est bien ! Maintenant, nous avons besoin de ce tableau un peu partout dans notre projet. Tu aurais pu le mettre directement dans un middleware dans l'`index.js` (ou segmenter dans un autre fichier, à toi de voir !).
 
-Maintenant ce tableau nous en avons besoin un peu partout dans notre projet, tu aurai pu le mettre directement dans un _middleware_ directement dans l'`index.js` (ou segmenter dans un autre fichier a toi de voir !).
+J'ai remarqué une coquille dans le code de ta vue. Il y a un `$` qui se promène quand tu as une carte dans ton deck. En regardant le code de plus près, tu as écrit `<p  class="item-subtotal">$<%= card.price%></p>`. Où as-tu trouvé ce code ? Dans le projet, on ne parle pas de prix ou de total. Je pense que tu as voulu te servir d'un template existant que tu as trouvé sur internet ou dans un autre cours pour gagner du temps et que tu n'as peut-être pas eu le temps de le modifier. Quoi qu'il en soit, il y a un petit souci !
 
-J'ai remarquer une coquille dans le code de ta view, il y'a un `$` qui ce promène quand tu as une carte dans ton deck. en regardant le code de plus près tu fais `<p  class="item-subtotal">$<%= card.price%></p>`. Ou as tu trouver ce code ? Dans le projet on ne parle pas de price ou de total, je pense que tu as voulu te servir d'un Template existant que tu as trouver sur internet ou dans un autre cours pour gagner du temps et que tu as peut-être pas eu le temps de le modifier, quoi qu'il en soit y'a un petit soucis !
-
-Pour le reste nous sommes tout bon ! Si tu veux reprendre les suggestions que je t'ai fait hésite pas, et même si tu veux essayer de faire les `bonus` du projet ca peut-être également intéressant pour approfondir tes connaissances.
+Pour le reste, nous sommes tout bons ! Si tu veux reprendre les suggestions que je t'ai faites, n'hésite pas. Et même si tu veux essayer de faire les `bonus` du projet, ça peut être également intéressant pour approfondir tes connaissances.
